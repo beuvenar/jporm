@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
 	<!-- POM file generated with GWT webAppCreator -->
 	<modelVersion>4.0.0</modelVersion>
@@ -16,12 +17,12 @@
 		<!-- <connection>scm:svn:https://jpattern.googlecode.com/svn/trunk/jporm</connection> -->
 		<!-- <developerConnection>scm:svn:https://jpattern.googlecode.com/svn/trunk/jporm</developerConnection> -->
 		<!-- <url>http://code.google.com/p/jpattern</url> -->
-		<connection>scm:git:ssh://github.com/ufoscout/jporm.git</connection>
-		<developerConnection>scm:git:ssh://git@github.com/ufoscout/jporm.git</developerConnection>
+		<!-- <tag>HEAD</tag> -->
 		<url>https://github.com/ufoscout/jporm</url>
-<!-- 		<tag>HEAD</tag> -->
+		<connection>scm:git:git://github.com/ufoscout/jporm.git</connection>
+		<developerConnection>scm:git:git@github.com:ufoscout/jporm.git</developerConnection>
 	</scm>
-	
+
 	<modules>
 		<module>jporm-core</module>
 		<module>jporm-spring</module>
