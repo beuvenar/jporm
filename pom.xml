@@ -6,7 +6,7 @@
 	<groupId>com.jporm</groupId>
 	<artifactId>jporm</artifactId>
 	<packaging>pom</packaging>
-	<version>7.2.3-SNAPSHOT</version>
+	<version>7.2.4-SNAPSHOT</version>
 
 	<name>jporm</name>
 	<description>http://www.jporm.com</description>
@@ -220,13 +220,13 @@
 
 	<build>
 		<plugins>
-<!-- 			<plugin> -->
-<!-- 				<groupId>org.apache.maven.plugins</groupId> -->
-<!-- 				<artifactId>maven-site-plugin</artifactId> -->
-<!-- 				<configuration> -->
-<!-- 					<skipDeploy>true</skipDeploy> -->
-<!-- 				</configuration> -->
-<!-- 			</plugin> -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-site-plugin</artifactId>
+				<configuration>
+					<skipDeploy>true</skipDeploy>
+				</configuration>
+			</plugin>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
