@@ -14,7 +14,8 @@
 	<url>http://www.jporm.com</url>
 
 	<scm>
-		<connection>scm:git:https://github.com/ufoscout/jporm.git</connection>
+	 	<connection>scm:git:git://github.com/ufoscout/jporm.git</connection>
+<!-- 		<connection>scm:git:https://github.com/ufoscout/jporm.git</connection> -->
 <!-- 		<connection>scm:git:git@github.com:ufoscout/jporm.git</connection> -->
 		<developerConnection>scm:git:git@github.com:ufoscout/jporm.git</developerConnection>
 		<!-- <tag>HEAD</tag> -->
