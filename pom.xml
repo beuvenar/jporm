@@ -14,15 +14,13 @@
 	<url>http://www.jporm.com</url>
 
 	<scm>
-		<!-- <connection>scm:svn:https://jpattern.googlecode.com/svn/trunk/jporm</connection> -->
-		<!-- <developerConnection>scm:svn:https://jpattern.googlecode.com/svn/trunk/jporm</developerConnection> -->
-		<!-- <url>http://code.google.com/p/jpattern</url> -->
-		<connection>scm:git:ssh://github.com/ufoscout/jporm.git</connection>
-		<developerConnection>scm:git:ssh://git@github.com/ufoscout/jporm.git</developerConnection>
+<!-- 		<connection>scm:git:https://github.com/ufoscout/jporm.git</connection> -->
+		<connection>scm:git:git@github.com:ufoscout/jporm.git</connection>
+		<developerConnection>scm:git:git@github.com:ufoscout/jporm.git</developerConnection>
+		<!-- <tag>HEAD</tag> -->
 		<url>https://github.com/ufoscout/jporm</url>
-<!-- 		<tag>HEAD</tag> -->
 	</scm>
-	
+
 	<modules>
 		<module>jporm-core</module>
 		<module>jporm-spring</module>
