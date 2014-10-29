@@ -7,7 +7,7 @@
 	<groupId>com.jporm</groupId>
 	<artifactId>jporm</artifactId>
 	<packaging>pom</packaging>
-	<version>7.2.2</version>
+	<version>7.2.2-SNAPSHOT</version>
 
 	<name>jporm</name>
 	<description>http://www.jporm.com</description>
@@ -17,12 +17,12 @@
 		<!-- <connection>scm:svn:https://jpattern.googlecode.com/svn/trunk/jporm</connection> -->
 		<!-- <developerConnection>scm:svn:https://jpattern.googlecode.com/svn/trunk/jporm</developerConnection> -->
 		<!-- <url>http://code.google.com/p/jpattern</url> -->
-		<!-- <tag>HEAD</tag> -->
+		<connection>scm:git:ssh://github.com/ufoscout/jporm.git</connection>
+		<developerConnection>scm:git:ssh://git@github.com/ufoscout/jporm.git</developerConnection>
 		<url>https://github.com/ufoscout/jporm</url>
-		<connection>scm:git:git://github.com/ufoscout/jporm.git</connection>
-		<developerConnection>scm:git:git@github.com:ufoscout/jporm.git</developerConnection>
+<!-- 		<tag>HEAD</tag> -->
 	</scm>
-
+	
 	<modules>
 		<module>jporm-core</module>
 		<module>jporm-spring</module>
