@@ -1,12 +1,12 @@
 /*******************************************************************************
  * Copyright 2013 Francesco Cina'
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *   http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -37,7 +37,7 @@ import com.jporm.test.TestData;
 import com.jporm.test.domain.section08.User;
 
 /**
- * 
+ *
  * @author Francesco Cina
  *
  * 05/giu/2011
@@ -48,14 +48,14 @@ public class QueryGroupByHavingTest extends BaseTestAllDB {
 		super(testName, testData);
 	}
 
-	private int firstnameOneQuantity = 50;
-	private String firstnameOne = UUID.randomUUID().toString();
+	private final int firstnameOneQuantity = 50;
+	private final String firstnameOne = UUID.randomUUID().toString();
 
-	private int firstnameTwoQuantity = 60;
-	private String firstnameTwo = UUID.randomUUID().toString();
+	private final int firstnameTwoQuantity = 60;
+	private final String firstnameTwo = UUID.randomUUID().toString();
 
-	private int firstnameThreeQuantity = 70;
-	private String firstnameThree = UUID.randomUUID().toString();
+	private final int firstnameThreeQuantity = 70;
+	private final String firstnameThree = UUID.randomUUID().toString();
 
 	@Before
 	public void setUp() {
@@ -103,6 +103,41 @@ public class QueryGroupByHavingTest extends BaseTestAllDB {
 				final Map<String, Integer> firstnameCount = new HashMap<String, Integer>();
 
 				session.findQuery(new String[]{"u.firstname", "count(*) as countName"}, User.class, "u").groupBy("u.firstname").get(new ResultSetReader<Void>() {
+					@Override
+					public Void read(final ResultSet resultSet) throws SQLException {
+						while (resultSet.next()) {
+							String rsFirstname = resultSet.getString("u.firstname");
+							Integer rsCount = resultSet.getInt("countName");
+							getLogger().debug("Found firstname [{}] count [{}]", rsFirstname, rsCount);
+							firstnameCount.put(rsFirstname, rsCount);
+						}
+						return null;
+					}
+				});
+
+				assertFalse(firstnameCount.isEmpty());
+				assertEquals( 3, firstnameCount.size());
+				assertTrue( firstnameCount.containsKey(firstnameOne) );
+				assertTrue( firstnameCount.containsKey(firstnameTwo) );
+				assertTrue( firstnameCount.containsKey(firstnameThree) );
+				assertEquals( Integer.valueOf(firstnameOneQuantity), firstnameCount.get(firstnameOne));
+				assertEquals( Integer.valueOf(firstnameTwoQuantity), firstnameCount.get(firstnameTwo));
+				assertEquals( Integer.valueOf(firstnameThreeQuantity), firstnameCount.get(firstnameThree));
+
+				return null;
+			}
+		});
+	}
+
+	@Test
+	public void testGroupByWithOrderBy() {
+		getJPOrm().session().doInTransaction(new TransactionCallback<Void>() {
+			@Override
+			public Void doInTransaction(final Session session) {
+
+				final Map<String, Integer> firstnameCount = new HashMap<String, Integer>();
+
+				session.findQuery(new String[]{"u.firstname", "count(*) as countName"}, User.class, "u").groupBy("u.firstname").orderBy().asc("u.firstname").get(new ResultSetReader<Void>() {
 					@Override
 					public Void read(final ResultSet resultSet) throws SQLException {
 						while (resultSet.next()) {

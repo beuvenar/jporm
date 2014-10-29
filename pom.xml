@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
 	<!-- POM file generated with GWT webAppCreator -->
 	<modelVersion>4.0.0</modelVersion>
@@ -64,7 +65,7 @@
 	<properties>
 		<!-- <maven.compiler.source>1.7</maven.compiler.source> -->
 		<!-- <maven.compiler.target>1.7</maven.compiler.target> -->
-		<maven.javadoc.failOnError>false</maven.javadoc.failOnError>
+<!-- 		<maven.javadoc.failOnError>false</maven.javadoc.failOnError> -->
 
 		<!-- BEGIN - DATABASE DRIVERS SUPPORTED -->
 		<derby.driver.version>10.9.1.0</derby.driver.version>
@@ -226,6 +227,18 @@
 				<configuration>
 					<skipDeploy>true</skipDeploy>
 				</configuration>
+				<executions>
+					<execution>
+						<id>default-site</id>
+						<phase>site</phase>
+						<goals>
+							<goal>site</goal>
+						</goals>
+						<configuration>
+							<skip>true</skip>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -257,6 +270,9 @@
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-javadoc-plugin</artifactId>
 					<version>2.10.1</version>
+					<configuration>
+						<failOnError>false</failOnError>
+					</configuration>
 				</plugin>
 				<!-- <plugin> -->
 				<!-- <groupId>org.apache.maven.plugins</groupId> -->
