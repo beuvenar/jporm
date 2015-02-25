@@ -1,12 +1,12 @@
 /*******************************************************************************
  * Copyright 2013 Francesco Cina'
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *   http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -33,17 +33,17 @@ import com.jporm.transaction.Transaction;
 import com.jporm.transaction.TransactionDefinition;
 
 /**
- * 
+ *
  * @author Francesco Cina
  *
  * 21/mag/2011
- * 
+ *
  */
 public interface Session {
 
     /**
      * Delete one bean from the database
-     * 
+     *
      * @param bean
      * @param cascade
      * @return
@@ -91,24 +91,13 @@ public interface Session {
 
     /**
      * Find a bean using its ID.
-     * 
+     *
      * @param <BEAN>
      * @param clazz The Class of the bean to load
      * @param idValue the value of the identifying column of the bean
      * @return
      */
     <BEAN> Find<BEAN> find(Class<BEAN> clazz, Object idValue);
-
-    /**
-     * Find a bean using its IDs.
-     * 
-     * @param <BEAN>
-     * @param clazz The Class of the bean to load
-     * @param idValues an ordered array with the values of the identifying columns of the bean
-     * @return
-     * @throws OrmException
-     */
-    <BEAN> Find<BEAN> find(Class<BEAN> clazz, Object[] idValues) throws OrmException;
 
     /**
      * Create a new query to find bean

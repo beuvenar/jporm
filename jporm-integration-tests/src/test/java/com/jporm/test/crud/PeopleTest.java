@@ -1,12 +1,12 @@
 /*******************************************************************************
  * Copyright 2013 Francesco Cina'
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *   http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -33,7 +33,7 @@ import com.jporm.test.domain.section02.People;
 import com.jporm.transaction.Transaction;
 
 /**
- * 
+ *
  * @author Francesco Cina
  *
  * 20/mag/2011
@@ -85,7 +85,7 @@ public class PeopleTest extends BaseTestAllDB {
 
 		// LOAD
 		tx = conn.transaction();
-		final People peopleLoad2 = conn.find(People.class, new Object[]{id}).get();
+		final People peopleLoad2 = conn.find(People.class, id).get();
 		assertNotNull(peopleLoad2);
 		assertEquals( peopleLoad1.getId(), peopleLoad2.getId() );
 		assertEquals( peopleLoad1.getFirstname(), peopleLoad2.getFirstname() );
@@ -96,7 +96,7 @@ public class PeopleTest extends BaseTestAllDB {
 		tx.commit();
 
 		tx = conn.transaction();
-		final People peopleLoad3 = conn.find(People.class, new Object[]{id}).get();
+		final People peopleLoad3 = conn.find(People.class, id).get();
 		assertNull(peopleLoad3);
 		tx.commit();
 

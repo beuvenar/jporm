@@ -34,6 +34,7 @@ import com.jporm.session.Session;
 import com.jporm.session.TransactionCallback;
 import com.jporm.test.BaseTestAllDB;
 import com.jporm.test.TestData;
+import com.jporm.test.domain.section08.AggregatedUserManyJob;
 import com.jporm.test.domain.section08.User;
 
 /**
@@ -63,7 +64,7 @@ public class QueryGroupByHavingTest extends BaseTestAllDB {
 			@Override
 			public Void doInTransaction(final Session session) {
 
-				session.deleteQuery(User.class).now();
+				session.deleteQuery(AggregatedUserManyJob.class).now();
 
 				for (int i=0; i<firstnameOneQuantity; i++) {
 					User user = new User();

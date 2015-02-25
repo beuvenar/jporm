@@ -1,12 +1,12 @@
 /*******************************************************************************
  * Copyright 2013 Francesco Cina'
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *   http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -16,6 +16,7 @@
 package com.jporm.session;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
@@ -55,7 +56,7 @@ import com.jporm.transaction.Transaction;
 import com.jporm.transaction.TransactionDefinition;
 
 /**
- * 
+ *
  * @author Francesco Cina
  *
  * 27/giu/2011
@@ -136,25 +137,31 @@ public class SessionImpl implements Session {
     public final <BEAN> Find<BEAN> find(final BEAN bean) throws OrmException {
         OrmClassTool<BEAN> ormClassTool = (OrmClassTool<BEAN>) getOrmClassToolMap().getOrmClassTool(bean.getClass());
         String[] pks = ormClassTool.getClassMap().getPrimaryKeyColumnJavaNames();
+    	if (pks.length > 1) {
+    		throw new RuntimeException("Cannot use this find method for class [" + bean.getClass().getName() + "]. Expected maximum one primary key field but found " + pks.length + ": " + Arrays.toString(pks));
+    	}
         Object[] values =  ormClassTool.getOrmPersistor().getPropertyValues(pks, bean);
         return find((Class<BEAN>) bean.getClass(), values);
     }
 
     @Override
     public final <BEAN> Find<BEAN> find(final Class<BEAN> clazz, final Object value) throws OrmException {
-        return this.find(clazz, new Object[]{value});
+    	return find(clazz, new Object[]{value});
     }
 
-    @Override
-    public final <BEAN> Find<BEAN> find(final Class<BEAN> clazz, final Object[] values) throws OrmException {
+    private final <BEAN> Find<BEAN> find(final Class<BEAN> clazz, final Object[] values) throws OrmException {
+    	final OrmClassTool<BEAN> ormClassTool = getOrmClassToolMap().getOrmClassTool(clazz);
+    	final String[] pks = ormClassTool.getClassMap().getPrimaryKeyColumnJavaNames();
+    	if (pks.length > 1 ) {
+    		throw new RuntimeException("Cannot use this find method for class [" + clazz.getName() + "]. Expected maximum one primary key field but found " + pks.length + ": " + Arrays.toString(pks));
+    	}
+
         return new AFind<BEAN>() {
             @Override
             public BEAN get() {
-                OrmClassTool<BEAN> ormClassTool = getOrmClassToolMap().getOrmClassTool(clazz);
                 CacheInfo cacheInfo = ormClassTool.getClassMap().getCacheInfo();
                 FindWhere<BEAN> query = findQuery(clazz, clazz.getSimpleName())
                         .lazy(isLazy()).cache(cacheInfo.cacheToUse(getCache())).ignore(getIgnoredFields()).where();
-                String[] pks = ormClassTool.getClassMap().getPrimaryKeyColumnJavaNames();
                 for (int i = 0; i < pks.length; i++) {
                     query.eq(pks[i], values[i]);
                 }
@@ -163,10 +170,8 @@ public class SessionImpl implements Session {
 
             @Override
             public BEAN getUnique() {
-                OrmClassTool<BEAN> ormClassTool = getOrmClassToolMap().getOrmClassTool(clazz);
                 FindWhere<BEAN> query = findQuery(clazz, clazz.getSimpleName())
                         .lazy(isLazy()).cache(getCache()).ignore(getIgnoredFields()).where();
-                String[] pks = ormClassTool.getClassMap().getPrimaryKeyColumnJavaNames();
                 for (int i = 0; i < pks.length; i++) {
                     query.eq(pks[i], values[i]);
                 }
@@ -175,9 +180,7 @@ public class SessionImpl implements Session {
 
             @Override
             public boolean exist() {
-                OrmClassTool<BEAN> ormClassTool = getOrmClassToolMap().getOrmClassTool(clazz);
                 FindWhere<BEAN> query = findQuery(clazz).where();
-                String[] pks = ormClassTool.getClassMap().getPrimaryKeyColumnJavaNames();
                 for (int i = 0; i < pks.length; i++) {
                     query.eq(pks[i], values[i]);
                 }
