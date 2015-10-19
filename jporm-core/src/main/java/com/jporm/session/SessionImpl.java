@@ -137,24 +137,22 @@ public class SessionImpl implements Session {
     public final <BEAN> Find<BEAN> find(final BEAN bean) throws OrmException {
         OrmClassTool<BEAN> ormClassTool = (OrmClassTool<BEAN>) getOrmClassToolMap().getOrmClassTool(bean.getClass());
         String[] pks = ormClassTool.getClassMap().getPrimaryKeyColumnJavaNames();
-    	if (pks.length > 1) {
-    		throw new RuntimeException("Cannot use this find method for class [" + bean.getClass().getName() + "]. Expected maximum one primary key field but found " + pks.length + ": " + Arrays.toString(pks));
-    	}
         Object[] values =  ormClassTool.getOrmPersistor().getPropertyValues(pks, bean);
-        return find((Class<BEAN>) bean.getClass(), values);
+        return find((Class<BEAN>) bean.getClass(), pks, values);
     }
 
     @Override
     public final <BEAN> Find<BEAN> find(final Class<BEAN> clazz, final Object value) throws OrmException {
-    	return find(clazz, new Object[]{value});
-    }
-
-    private final <BEAN> Find<BEAN> find(final Class<BEAN> clazz, final Object[] values) throws OrmException {
-    	final OrmClassTool<BEAN> ormClassTool = getOrmClassToolMap().getOrmClassTool(clazz);
-    	final String[] pks = ormClassTool.getClassMap().getPrimaryKeyColumnJavaNames();
-    	if (pks.length > 1 ) {
+        OrmClassTool<BEAN> ormClassTool = getOrmClassToolMap().getOrmClassTool(clazz);
+        String[] pks = ormClassTool.getClassMap().getPrimaryKeyColumnJavaNames();
+    	if (pks.length > 1) {
     		throw new RuntimeException("Cannot use this find method for class [" + clazz.getName() + "]. Expected maximum one primary key field but found " + pks.length + ": " + Arrays.toString(pks));
     	}
+    	return find(clazz, pks, new Object[]{value});
+    }
+
+    private final <BEAN> Find<BEAN> find(final Class<BEAN> clazz, final String[] pks, final Object[] values) throws OrmException {
+    	final OrmClassTool<BEAN> ormClassTool = getOrmClassToolMap().getOrmClassTool(clazz);
 
         return new AFind<BEAN>() {
             @Override
