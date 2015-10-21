@@ -1,12 +1,12 @@
 /*******************************************************************************
  * Copyright 2013 Francesco Cina'
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *   http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -38,7 +38,7 @@ import com.jporm.session.SessionProvider;
 import com.jporm.validator.ValidatorService;
 
 /**
- * 
+ *
  * @author Francesco Cina'
  *
  * 26/ago/2011
@@ -52,7 +52,7 @@ public class JPOrm implements JPO {
 
     /**
      * Create a new instance of JPOrm.
-     * 
+     *
      * @param sessionProvider
      */
     public JPOrm(final SessionProvider sessionProvider) {
@@ -76,7 +76,7 @@ public class JPOrm implements JPO {
             if (!getServiceCatalog().containsTool(clazz)) {
                 logger.debug("register new class: " + clazz.getName()); //$NON-NLS-1$
                 final ClassMap<BEAN> classMap = new ClassMapBuilderImpl<BEAN>(clazz, getServiceCatalog()).generate();
-                final OrmPersistor<BEAN> ormPersistor =  new PersistorGeneratorImpl<BEAN>(getServiceCatalog(), classMap, getTypeFactory()).generate();
+                final OrmPersistor<BEAN> ormPersistor =  new PersistorGeneratorImpl<BEAN>(classMap, getTypeFactory()).generate();
                 final OrmClassTool<BEAN> ormClassTool = new OrmClassToolImpl<BEAN>(classMap, ormPersistor);
                 serviceCatalog.put(clazz, ormClassTool);
             }
@@ -104,9 +104,9 @@ public class JPOrm implements JPO {
 
     @Override
     public void register(TypeWrapperBuilder<?, ?> typeWrapperBuilder) throws OrmConfigurationException {
-        getTypeFactory().addTypeWrapper(typeWrapperBuilder);        
+        getTypeFactory().addTypeWrapper(typeWrapperBuilder);
     }
-    
+
     @Override
     public synchronized void setValidatorService(final ValidatorService validatorService) {
         if (validatorService!=null) {

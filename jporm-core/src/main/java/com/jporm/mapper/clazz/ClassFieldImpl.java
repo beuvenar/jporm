@@ -1,12 +1,12 @@
 /*******************************************************************************
  * Copyright 2013 Francesco Cina'
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *   http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -23,7 +23,7 @@ import com.jporm.persistor.reflection.SetManipulator;
 
 
 /**
- * 
+ *
  * @author cinafr
  *
  * @param <P>
@@ -38,7 +38,6 @@ public class ClassFieldImpl<BEAN, P> implements ClassField<BEAN, P> {
     private final String fieldName;
     private final Class<P> type;
     private boolean identifier = false;
-    private Class<?> relationVersusClass = null;
 
     public ClassFieldImpl(final Class<P> type,  final String fieldName) {
         this.type = type;
@@ -108,16 +107,6 @@ public class ClassFieldImpl<BEAN, P> implements ClassField<BEAN, P> {
     @Override
     public final String getFieldName() {
         return this.fieldName;
-    }
-
-    @SuppressWarnings("unchecked")
-    @Override
-    public <VERSUS_CLASS> Class<VERSUS_CLASS> getRelationVersusClass() {
-        return (Class<VERSUS_CLASS>) relationVersusClass;
-    }
-
-    public void setRelationVersusClass(final Class<?> relationVersusClass) {
-        this.relationVersusClass = relationVersusClass;
     }
 
 }

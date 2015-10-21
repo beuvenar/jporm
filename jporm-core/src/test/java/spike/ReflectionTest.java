@@ -1,12 +1,12 @@
 /*******************************************************************************
  * Copyright 2013 Francesco Cina'
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *   http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -33,7 +33,7 @@ import java.util.List;
 import org.junit.Test;
 
 import com.jporm.BaseTestApi;
-import com.jporm.domain.section08.UserJob;
+import com.jporm.domain.section02.People;
 
 /**
  * <class_description>
@@ -58,7 +58,7 @@ public class ReflectionTest extends BaseTestApi {
         assertEquals( List.class ,  listField.getType() );
         assertTrue( listField.getType().isAssignableFrom(List.class) );
         assertTrue( Collection.class.isAssignableFrom(listField.getType()) );
-        assertEquals( UserJob.class , ((ParameterizedType) listField.getGenericType()).getActualTypeArguments()[0] );
+        assertEquals( People.class , ((ParameterizedType) listField.getGenericType()).getActualTypeArguments()[0] );
 
         //        ParameterizedType stringListType = (ParameterizedType) listField.getGenericType();
         //        Class<?> stringListClass = (Class<?>) stringListType.getActualTypeArguments()[0];

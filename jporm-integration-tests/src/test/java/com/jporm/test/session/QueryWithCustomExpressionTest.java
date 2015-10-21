@@ -1,12 +1,12 @@
 /*******************************************************************************
  * Copyright 2013 Francesco Cina'
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *   http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -33,7 +33,7 @@ import com.jporm.test.TestData;
 import com.jporm.test.domain.section08.User;
 
 /**
- * 
+ *
  * @author Francesco Cina
  *
  * 05/giu/2011
@@ -79,7 +79,7 @@ public class QueryWithCustomExpressionTest extends BaseTestAllDB {
 
 				int module = new Random().nextInt(10);
 
-				List<User> results = session.findQuery(User.class).lazy(true).where("MOD(User.id, 10) = ?", module).getList();
+				List<User> results = session.findQuery(User.class).where("MOD(User.id, 10) = ?", module).getList();
 
 				assertFalse( results.isEmpty() );
 
@@ -101,7 +101,7 @@ public class QueryWithCustomExpressionTest extends BaseTestAllDB {
 				int max = new Random().nextInt(19) + 1;
 				int module = new Random().nextInt(max);
 
-				List<User> results = session.findQuery(User.class).lazy(true).where(Exp.gt("id", 0)).and("User.id >= 0").and("MOD(User.id, ?) = ?", max, module).getList();
+				List<User> results = session.findQuery(User.class).where(Exp.gt("id", 0)).and("User.id >= 0").and("MOD(User.id, ?) = ?", max, module).getList();
 
 				assertFalse( results.isEmpty() );
 

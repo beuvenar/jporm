@@ -1,12 +1,12 @@
 /*******************************************************************************
  * Copyright 2013 Francesco Cina'
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *   http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -16,7 +16,6 @@
 package com.jporm.domain;
 
 import com.jporm.annotation.Column;
-import com.jporm.annotation.FK;
 import com.jporm.annotation.Generator;
 import com.jporm.annotation.Id;
 import com.jporm.annotation.Table;
@@ -24,7 +23,7 @@ import com.jporm.annotation.Version;
 import com.jporm.annotation.generator.GeneratorType;
 
 /**
- * 
+ *
  * @author cinafr
  *
  */
@@ -44,10 +43,6 @@ public class AllAnnotationsBean {
 
     @Column(name = "ANNOTATION_COLUMN_NAME")
     private Object columnAnnotated;
-
-    @FK
-    @Column(name="BEAN_SIX")
-    private AnnotationBean6 bean6;
 
     @Version
     private long myVersion;

@@ -1,12 +1,12 @@
 /*******************************************************************************
  * Copyright 2013 Francesco Cina'
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *   http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -45,7 +45,7 @@ import com.jporm.persistor.PersistorGeneratorImpl;
 import com.jporm.persistor.type.TypeFactory;
 
 /**
- * 
+ *
  * @author Francesco Cina'
  *
  * Mar 24, 2012
@@ -61,7 +61,7 @@ public class ReflectionEmployerPersistorGeneratorTest extends BaseTestApi {
     public void setUp() throws Exception {
         classMapper = new ClassMapBuilderImpl<Employee>(Employee.class, new NullServiceCatalog() ).generate();
         assertNotNull(classMapper);
-        persistor = new PersistorGeneratorImpl<Employee>(new NullServiceCatalog(), classMapper, new TypeFactory()).generate();
+        persistor = new PersistorGeneratorImpl<Employee>(classMapper, new TypeFactory()).generate();
         assertNotNull(persistor);
 
         employee = new Employee();
@@ -85,7 +85,7 @@ public class ReflectionEmployerPersistorGeneratorTest extends BaseTestApi {
         assertEquals( expectedFields.length , allValuesValues.length );
 
         Map<String, Object> valueMap = getValueMap(expectedFields, allValuesValues);
-        
+
         assertEquals( employee.getId(), valueMap.get("id") );
         assertEquals( employee.getName(), valueMap.get("name") );
         assertEquals( employee.getAge(), valueMap.get("age") );
@@ -106,13 +106,13 @@ public class ReflectionEmployerPersistorGeneratorTest extends BaseTestApi {
         assertEquals( expectedFields.length , allNotGeneratedValues.length );
 
         Map<String, Object> valueMap = getValueMap(expectedFields, allNotGeneratedValues);
-        
+
         assertEquals( employee.getId(), valueMap.get("id") );
         assertEquals( employee.getName(), valueMap.get("name") );
         assertEquals( employee.getAge(), valueMap.get("age") );
         assertEquals( employee.getSurname(), valueMap.get("surname") );
         assertEquals( employee.getEmployeeNumber(), valueMap.get("employeeNumber") );
-        
+
     }
 
     @Test
@@ -127,8 +127,8 @@ public class ReflectionEmployerPersistorGeneratorTest extends BaseTestApi {
 
         assertEquals( expectedFields.length , notPrimaryKeyValues.length );
         Map<String, Object> valueMap = getValueMap(expectedFields, notPrimaryKeyValues);
-        
-        
+
+
         assertEquals( employee.getId(), valueMap.get("id") );
         assertEquals( employee.getName(), valueMap.get("name") );
         assertEquals( employee.getAge(), valueMap.get("age") );
@@ -202,7 +202,7 @@ public class ReflectionEmployerPersistorGeneratorTest extends BaseTestApi {
         assertFalse(persistor.hasGenerator());
 
     }
-    
+
     private Map<String,Object> getValueMap(String[] names, Object[] values) {
         Map<String,Object> valueMap = new HashMap<String, Object>();
         for (int i=0; i<names.length; i++) {

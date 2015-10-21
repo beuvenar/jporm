@@ -1,12 +1,12 @@
 /*******************************************************************************
  * Copyright 2013 Francesco Cina'
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *   http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -22,9 +22,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.jporm.exception.OrmConfigurationException;
-import com.jporm.mapper.ServiceCatalog;
 import com.jporm.mapper.clazz.ClassField;
-import com.jporm.mapper.clazz.ClassFieldImpl;
 import com.jporm.mapper.clazz.ClassMap;
 import com.jporm.persistor.generator.GeneratorManipulator;
 import com.jporm.persistor.generator.GeneratorManipulatorImpl;
@@ -46,11 +44,8 @@ public class PersistorGeneratorImpl<BEAN> implements PersistorGenerator<BEAN> {
 
 	private final ClassMap<BEAN> classMap;
 	private final TypeFactory typeFactory;
-	private final ServiceCatalog serviceCatalog;
 
-	public PersistorGeneratorImpl(final ServiceCatalog serviceCatalog, final ClassMap<BEAN> classMap,
-			final TypeFactory typeFactory) {
-		this.serviceCatalog = serviceCatalog;
+	public PersistorGeneratorImpl(final ClassMap<BEAN> classMap, final TypeFactory typeFactory) {
 		this.classMap = classMap;
 		this.typeFactory = typeFactory;
 	}
@@ -67,23 +62,7 @@ public class PersistorGeneratorImpl<BEAN> implements PersistorGenerator<BEAN> {
 		Map<String, PropertyPersistor<BEAN, ?, ?>> propertyPersistors = new HashMap<String, PropertyPersistor<BEAN, ?, ?>>();
 		for (final String columnJavaName : this.classMap.getAllColumnJavaNames()) {
 			final ClassField<BEAN, P> classField = this.classMap.getClassFieldByJavaName(columnJavaName);
-			if (classField.getRelationVersusClass() != null) {
-				logger.debug(
-						"Build PropertyPersistor for field [{}] that is a relation versus [{}]", classField.getFieldName(), classField.getRelationVersusClass()); //$NON-NLS-1$
-				Class<P> versusClass = classField.getRelationVersusClass();
-				ClassMap<P> versusClassMap = serviceCatalog.getOrmClassTool(versusClass).getClassMap();
-				if (versusClassMap.getPrimaryKeyColumnJavaNames().length > 1) {
-				    throw new OrmConfigurationException("Cannot map relation versus class " + versusClass + ". No unique id defined or more than an id available.");
-				}
-				ClassFieldImpl<P, Object> versusPkField = versusClassMap.getClassFieldByJavaName(versusClassMap
-						.getPrimaryKeyColumnJavaNames()[0]);
-				logger.debug("Versus versusPkField type [{}]", versusPkField.getType());
-				PropertyPersistor<P, Object, DB> decoratedPropertyPersistor = getPropertyPersistor(versusPkField);
-				propertyPersistors.put(columnJavaName, new PropertyPeristorDecorator<P, BEAN, Object, DB>(
-						decoratedPropertyPersistor, classField));
-			} else {
 				propertyPersistors.put(columnJavaName, getPropertyPersistor(classField));
-			}
 		}
 		return propertyPersistors;
 	}

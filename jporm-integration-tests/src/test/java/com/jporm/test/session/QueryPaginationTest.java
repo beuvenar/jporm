@@ -1,12 +1,12 @@
 /*******************************************************************************
  * Copyright 2013 Francesco Cina'
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *   http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -32,7 +32,7 @@ import com.jporm.test.TestData;
 import com.jporm.test.domain.section08.User;
 
 /**
- * 
+ *
  * @author Francesco Cina
  *
  * 05/giu/2011
@@ -78,7 +78,7 @@ public class QueryPaginationTest extends BaseTestAllDB {
 
 				int maxRows = new Random().nextInt(userQuantity) + 1;
 
-				List<User> results = session.findQuery(User.class).lazy(true).maxRows(maxRows).where().ge("id", firstId).orderBy().asc("id").getList();
+				List<User> results = session.findQuery(User.class).maxRows(maxRows).where().ge("id", firstId).orderBy().asc("id").getList();
 
 				assertEquals( maxRows , results.size() );
 
@@ -100,7 +100,7 @@ public class QueryPaginationTest extends BaseTestAllDB {
 
 				int maxRows = new Random().nextInt(userQuantity) + 1;
 
-				List<User> results = session.findQuery(User.class).lazy(true).maxRows(maxRows).where().ge("id", firstId).orderBy().desc("id").getList();
+				List<User> results = session.findQuery(User.class).maxRows(maxRows).where().ge("id", firstId).orderBy().desc("id").getList();
 
 				assertEquals( maxRows , results.size() );
 
@@ -122,7 +122,7 @@ public class QueryPaginationTest extends BaseTestAllDB {
 
 				int firstRow = new Random().nextInt(userQuantity);
 
-				List<User> results = session.findQuery(User.class).lazy(true).firstRow(firstRow).where().ge("id", firstId).orderBy().asc("id").getList();
+				List<User> results = session.findQuery(User.class).firstRow(firstRow).where().ge("id", firstId).orderBy().asc("id").getList();
 
 				assertEquals( userQuantity - firstRow , results.size() );
 
@@ -145,7 +145,7 @@ public class QueryPaginationTest extends BaseTestAllDB {
 
 				int firstRow = new Random().nextInt(userQuantity);
 
-				List<User> results = session.findQuery(User.class).lazy(true).firstRow(firstRow).where().ge("id", firstId).orderBy().desc("id").getList();
+				List<User> results = session.findQuery(User.class).firstRow(firstRow).where().ge("id", firstId).orderBy().desc("id").getList();
 
 				assertEquals( userQuantity - firstRow , results.size() );
 
@@ -169,7 +169,7 @@ public class QueryPaginationTest extends BaseTestAllDB {
 				int firstRow = new Random().nextInt(userQuantity);
 				int maxRows = new Random().nextInt(userQuantity - firstRow) + 1;
 
-				List<User> results = session.findQuery(User.class).lazy(true).maxRows(maxRows).firstRow(firstRow).where().ge("id", firstId).orderBy().asc("id").getList();
+				List<User> results = session.findQuery(User.class).maxRows(maxRows).firstRow(firstRow).where().ge("id", firstId).orderBy().asc("id").getList();
 
 				assertEquals( maxRows , results.size() );
 
@@ -200,7 +200,7 @@ public class QueryPaginationTest extends BaseTestAllDB {
 						results.add(user);
 					}
 				};
-				session.findQuery(User.class).lazy(true).maxRows(maxRows).firstRow(firstRow).where().ge("id", firstId).orderBy().desc("id").get(rsr);
+				session.findQuery(User.class).maxRows(maxRows).firstRow(firstRow).where().ge("id", firstId).orderBy().desc("id").get(rsr);
 
 				assertEquals( maxRows , results.size() );
 

@@ -13,6 +13,16 @@
   - FK needs that the related bean has exactly one primary key, this not verified
 
 --------------------------------
+ - Release 7.4.0 - 2015.10.21 -
+--------------------------------
+  - Removed experimental FX and Cascade annotations
+
+--------------------------------
+ - Release 7.3.6 - 2015.10.12 -
+--------------------------------
+  - Fixed: Fix all regressions introduced with JDK8 
+
+--------------------------------
  - Release 7.2.1 - 2013.11.12 -
 --------------------------------
   - Fixed: It is now possible to build JPOrm with a JDK8 

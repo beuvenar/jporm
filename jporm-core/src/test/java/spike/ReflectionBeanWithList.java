@@ -1,12 +1,12 @@
 /*******************************************************************************
  * Copyright 2013 Francesco Cina'
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *   http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -24,10 +24,10 @@ package spike;
 
 import java.util.List;
 
-import com.jporm.domain.section08.UserJob;
+import com.jporm.domain.section02.People;
 
 /**
- * <class_description> 
+ * <class_description>
  * <p><b>notes</b>:
  * <p>ON : Feb 13, 2013
  *
@@ -36,13 +36,13 @@ import com.jporm.domain.section08.UserJob;
  */
 class ReflectionBeanWithList {
 
-    private List<UserJob> list;
+    private List<People> list;
 
-    public List<UserJob> getList() {
+    public List<People> getList() {
         return list;
     }
 
-    public void setList(final List<UserJob> list) {
+    public void setList(final List<People> list) {
         this.list = list;
     }
 }

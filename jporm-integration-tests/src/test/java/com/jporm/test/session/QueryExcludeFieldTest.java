@@ -1,12 +1,12 @@
 /*******************************************************************************
  * Copyright 2013 Francesco Cina'
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *   http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -15,7 +15,8 @@
  ******************************************************************************/
 package com.jporm.test.session;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 import java.util.Date;
 import java.util.Random;
@@ -27,13 +28,10 @@ import com.jporm.session.TransactionCallback;
 import com.jporm.test.BaseTestAllDB;
 import com.jporm.test.TestData;
 import com.jporm.test.domain.section05.AutoId;
-import com.jporm.test.domain.section08.AggregatedUserManyJob;
 import com.jporm.test.domain.section08.User;
-import com.jporm.test.domain.section08.UserAddress;
-import com.jporm.test.domain.section08.UserCountry;
 
 /**
- * 
+ *
  * @author Francesco Cina
  *
  * 20/mag/2011
@@ -75,8 +73,6 @@ public class QueryExcludeFieldTest extends BaseTestAllDB {
 			public Void doInTransaction(final Session session) {
 				long suffix = new Random().nextLong();
 
-				session.deleteQuery(AggregatedUserManyJob.class).now();
-
 				User user = new User();
 				user.setUserAge(0l);
 				user.setFirstname("aaa" + suffix);
@@ -87,11 +83,6 @@ public class QueryExcludeFieldTest extends BaseTestAllDB {
 				session.save(user).now();
 
 				user.setFirstname("ccc" + suffix);
-				UserAddress address = new UserAddress();
-				user.setAddress(address);
-				UserCountry country = new UserCountry();
-				country.setName("country" + suffix);
-				address.setCountry(country);
 				session.save(user).now();
 
 				assertEquals(  session.findQuery(User.class).orderBy().desc("firstname").getList().get(0).getFirstname() ,

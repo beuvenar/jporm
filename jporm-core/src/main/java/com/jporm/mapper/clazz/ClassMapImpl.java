@@ -1,12 +1,12 @@
 /*******************************************************************************
  * Copyright 2013 Francesco Cina'
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *   http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -15,10 +15,8 @@
  ******************************************************************************/
 package com.jporm.mapper.clazz;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import com.jporm.annotation.Version;
@@ -26,12 +24,9 @@ import com.jporm.annotation.cache.CacheInfo;
 import com.jporm.annotation.table.TableInfo;
 import com.jporm.exception.OrmConfigurationException;
 import com.jporm.exception.OrmException;
-import com.jporm.mapper.relation.ClassFKMapImpl;
-import com.jporm.mapper.relation.RelationInnerFK;
-import com.jporm.mapper.relation.RelationOuterFK;
 
 /**
- * 
+ *
  * @author Francesco Cina
  *
  * 22/mag/2011
@@ -41,7 +36,6 @@ public class ClassMapImpl<BEAN> implements ClassMap<BEAN> {
     private final CacheInfo cacheInfo;
     private final TableInfo tableInfo;
     private final Class<BEAN> mappedClass;
-    private final ClassFKMapImpl<BEAN> classFKMap;
     private final Map<String, ClassFieldImpl<BEAN, ?>> fieldClassMapByJavaName = new HashMap<String, ClassFieldImpl<BEAN,?>>();
     private String[] allColumnJavaNames = new String[0];
     private String[] allNotGeneratedColumnJavaNames = new String[0];
@@ -51,14 +45,11 @@ public class ClassMapImpl<BEAN> implements ClassMap<BEAN> {
     private String[] allGeneratedColumnJavaNames = new String[0];
     private String[] allGeneratedColumnDBNames = new String[0];
     private boolean versionGenerator = false;
-    private final List<RelationOuterFK<BEAN, ?, ?>> outerRelations = new ArrayList<RelationOuterFK<BEAN, ?, ?>>();
-    private final List<RelationInnerFK<BEAN, ?>> innerRelations = new ArrayList<RelationInnerFK<BEAN,?>>();
 
     public ClassMapImpl(final Class<BEAN> mappedClass, final TableInfo tableInfo, final CacheInfo cacheInfo) {
         this.mappedClass = mappedClass;
         this.tableInfo = tableInfo;
         this.cacheInfo = cacheInfo;
-        classFKMap = new ClassFKMapImpl<BEAN>(mappedClass);
     }
 
     @Override
@@ -158,24 +149,6 @@ public class ClassMapImpl<BEAN> implements ClassMap<BEAN> {
     public void setAllGeneratedColumnDBNames(
             final String[] allGeneratedColumnDBNames) {
         this.allGeneratedColumnDBNames = allGeneratedColumnDBNames;
-    }
-
-    @Override
-    public List<RelationOuterFK<BEAN, ?, ?>> getOuterRelations() {
-        return outerRelations;
-    }
-
-    @Override
-    public ClassFKMapImpl<BEAN> getFKs() {
-        return classFKMap;
-    }
-
-    /**
-     * @return
-     */
-    @Override
-    public List<RelationInnerFK<BEAN, ?>> getInnerRelations() {
-        return innerRelations;
     }
 
     /**
