@@ -1,12 +1,12 @@
 /*******************************************************************************
  * Copyright 2013 Francesco Cina'
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *   http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -43,7 +43,7 @@ import com.jporm.test.domain.section01.Employee;
 import com.jporm.transaction.Transaction;
 
 /**
- * 
+ *
  * @author Francesco Cina
  *
  * 02/lug/2011
@@ -67,7 +67,7 @@ public class CustomQueryResultSetReaderTest extends BaseTestAllDB {
 		session = jpOrm.session();
 		Transaction tx = session.transaction();
 
-		session.deleteQuery(Employee.class);
+		session.deleteQuery(Employee.class).now();
 
 		final Random random = new Random();
 		employee1 = new Employee();

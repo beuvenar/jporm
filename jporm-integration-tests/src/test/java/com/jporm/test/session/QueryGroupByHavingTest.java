@@ -66,10 +66,10 @@ public class QueryGroupByHavingTest extends BaseTestAllDB {
 			@Override
 			public Void doInTransaction(final Session session) {
 
-				session.deleteQuery(UserJobTask.class);
-				session.deleteQuery(UserJob.class);
-				session.deleteQuery(UserAddress.class);
-				session.deleteQuery(User.class);
+				session.deleteQuery(UserJobTask.class).now();
+				session.deleteQuery(UserJob.class).now();
+				session.deleteQuery(UserAddress.class).now();
+				session.deleteQuery(User.class).now();
 
 				for (int i=0; i<firstnameOneQuantity; i++) {
 					User user = new User();
