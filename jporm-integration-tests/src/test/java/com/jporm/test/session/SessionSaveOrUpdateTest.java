@@ -58,7 +58,7 @@ public class SessionSaveOrUpdateTest extends BaseTestAllDB {
 		final Session conn = jpOrm.session();
 		final Transaction tx = conn.transaction();
 
-		autoId = conn.saveOrUpdate(autoId).now();
+		autoId = conn.saveOrUpdate(autoId);
 		final int newId = autoId.getId();
 
 		assertNotSame(oldId, newId);
@@ -67,7 +67,7 @@ public class SessionSaveOrUpdateTest extends BaseTestAllDB {
 		final String newValue = "new value for test " + new Date().getTime(); //$NON-NLS-1$
 		autoId.setValue(newValue);
 
-		autoId = conn.saveOrUpdate(autoId).now();
+		autoId = conn.saveOrUpdate(autoId);
 
 		assertEquals(newId, autoId.getId());
 		assertEquals(newValue, conn.find(AutoId.class, newId).get().getValue());
@@ -90,7 +90,7 @@ public class SessionSaveOrUpdateTest extends BaseTestAllDB {
 		final Transaction tx = conn.transaction();
 
 		try {
-			autoId = conn.saveOrUpdate(autoId).now();
+			autoId = conn.saveOrUpdate(autoId);
 			Integer newId = autoId.getId();
 
 			assertNotSame(oldId, newId);
@@ -99,7 +99,7 @@ public class SessionSaveOrUpdateTest extends BaseTestAllDB {
 			final String newValue = "new value for test " + new Date().getTime(); //$NON-NLS-1$
 			autoId.setValue(newValue);
 
-			autoId = conn.saveOrUpdate(autoId).now();
+			autoId = conn.saveOrUpdate(autoId);
 
 			assertEquals(newId, autoId.getId());
 			assertEquals(newValue, conn.find(AutoId.class, newId).get().getValue());
@@ -125,13 +125,13 @@ public class SessionSaveOrUpdateTest extends BaseTestAllDB {
 		// CREATE
 		final Session conn = jpOrm.session();
 		final Transaction tx = conn.transaction();
-		employee = conn.save(employee).now();
+		employee = conn.save(employee);
 
 		assertEquals("oldName", conn.find(Employee.class, id).get().getName()); //$NON-NLS-1$
 
 		employee.setName("newName"); //$NON-NLS-1$
 
-		employee = conn.saveOrUpdate(employee).now();
+		employee = conn.saveOrUpdate(employee);
 
 		assertEquals("newName", conn.find(Employee.class, id).get().getName()); //$NON-NLS-1$
 
@@ -147,17 +147,17 @@ public class SessionSaveOrUpdateTest extends BaseTestAllDB {
 		final Session conn = jpOrm.session();
 		final Transaction tx = conn.transaction();
 
-		conn.deleteQuery(DataVersionWithoutGenerator.class).now();
+		conn.deleteQuery(DataVersionWithoutGenerator.class);
 
 		DataVersionWithoutGenerator bean = new DataVersionWithoutGenerator();
 		int id = 1000;
 		bean.setId(id);
 
-		bean = conn.saveOrUpdate(bean).now();
+		bean = conn.saveOrUpdate(bean);
 
 		assertEquals(0, conn.find(DataVersionWithoutGenerator.class, id).get().getVersion());
 
-		bean = conn.saveOrUpdate(bean).now();
+		bean = conn.saveOrUpdate(bean);
 
 		assertEquals(1, conn.find(DataVersionWithoutGenerator.class, id).get().getVersion());
 

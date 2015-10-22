@@ -65,7 +65,7 @@ public class SessionImpl implements Session {
     }
 
     @Override
-    public <BEAN> Delete<BEAN> delete(final BEAN bean) {
+    public <BEAN> int delete(final BEAN bean) {
         return new Delete<BEAN>() {
             @Override
             public int now() {
@@ -79,21 +79,21 @@ public class SessionImpl implements Session {
                 }
                 return query.now();
             }
-        };
+        }.now();
     }
 
     @Override
-    public final <BEAN> Delete<List<BEAN>> delete(final List<BEAN> beans) throws OrmException {
+    public final <BEAN> int delete(final List<BEAN> beans) throws OrmException {
         return new Delete<List<BEAN>>(){
             @Override
             public int now() {
                 int result = 0;
                 for (final BEAN bean : beans) {
-                    result += delete(bean).now();
+                    result += delete(bean);
                 }
                 return result;
             }
-        };
+        }.now();
     }
 
     @Override
@@ -208,7 +208,7 @@ public class SessionImpl implements Session {
     }
 
     @Override
-    public <BEAN> Save<BEAN> save(final BEAN bean) {
+    public <BEAN> BEAN save(final BEAN bean) {
         return new Save<BEAN>() {
             @Override
             public BEAN now() {
@@ -221,25 +221,25 @@ public class SessionImpl implements Session {
                 }
                 return null;
             }
-        };
+        }.now();
     }
 
     @Override
-    public <BEAN> Save<List<BEAN>> save(final Collection<BEAN> beans) throws OrmException {
+    public <BEAN> List<BEAN> save(final Collection<BEAN> beans) throws OrmException {
         return new Save<List<BEAN>>() {
             @Override
             public List<BEAN> now() {
                 final List<BEAN> result = new ArrayList<BEAN>();
                 for (final BEAN bean : beans) {
-                    result.add(save(bean).now());
+                    result.add(save(bean));
                 }
                 return result;
             }
-        };
+        }.now();
     }
 
     @Override
-    public <BEAN> SaveOrUpdate<BEAN> saveOrUpdate(final BEAN bean) throws OrmException {
+    public <BEAN> BEAN saveOrUpdate(final BEAN bean) throws OrmException {
         return new SaveOrUpdate<BEAN>() {
             @Override
             public BEAN now() {
@@ -261,21 +261,21 @@ public class SessionImpl implements Session {
                     }
                 }
             }
-        };
+        }.now();
     }
 
     @Override
-    public <BEAN> SaveOrUpdate<List<BEAN>> saveOrUpdate(final Collection<BEAN> beans) throws OrmException {
+    public <BEAN> List<BEAN> saveOrUpdate(final Collection<BEAN> beans) throws OrmException {
         return new SaveOrUpdate<List<BEAN>>() {
             @Override
             public List<BEAN> now() {
                 final List<BEAN> result = new ArrayList<BEAN>();
                 for (final BEAN bean : beans) {
-                    result.add(saveOrUpdate(bean).now());
+                    result.add(saveOrUpdate(bean));
                 }
                 return result;
             }
-        };
+        }.now();
     }
 
     @Override
@@ -300,7 +300,7 @@ public class SessionImpl implements Session {
     }
 
     @Override
-    public <BEAN> Update<BEAN> update(final BEAN bean) throws OrmException {
+    public <BEAN> BEAN update(final BEAN bean) throws OrmException {
         return new Update<BEAN>() {
             @Override
             public BEAN now() {
@@ -310,21 +310,21 @@ public class SessionImpl implements Session {
                 BEAN newBean = ormClassTool.getOrmPersistor().clone(bean);
                 return new UpdateQueryOrm<BEAN>(newBean, serviceCatalog).now();
             }
-        };
+        }.now();
     }
 
     @Override
-    public <BEAN> Update<List<BEAN>> update(final Collection<BEAN> beans) throws OrmException {
+    public <BEAN> List<BEAN> update(final Collection<BEAN> beans) throws OrmException {
         return new Update<List<BEAN>>(){
             @Override
             public List<BEAN> now() {
                 final List<BEAN> result = new ArrayList<BEAN>();
                 for (final BEAN bean : beans) {
-                    result.add(update(bean).now());
+                    result.add(update(bean));
                 }
                 return result;
             }
-        };
+        }.now();
     }
 
     @Override

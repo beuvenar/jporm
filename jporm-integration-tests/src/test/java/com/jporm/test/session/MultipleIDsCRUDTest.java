@@ -44,11 +44,11 @@ public class MultipleIDsCRUDTest extends BaseTestAllDB {
 				user.setFirstname("firstname");
 				user.setLastname("lastname");
 
-				user = session.saveOrUpdate(user).now();
+				user = session.saveOrUpdate(user);
 				assertNotNull(user);
 				assertNotNull(user.getId());
 
-				user = session.saveOrUpdate(user).now();
+				user = session.saveOrUpdate(user);
 				assertNotNull(user);
 				assertNotNull(user.getId());
 
@@ -56,7 +56,7 @@ public class MultipleIDsCRUDTest extends BaseTestAllDB {
 				assertNotNull(user);
 				assertNotNull(user.getId());
 
-				assertEquals(1, session.delete(user).now());
+				assertEquals(1, session.delete(user));
 				assertNull(session.find(user).get());
 
 				return null;
@@ -76,11 +76,11 @@ public class MultipleIDsCRUDTest extends BaseTestAllDB {
 				user.setFirstname("firstname");
 				user.setLastname("lastname");
 
-				user = session.saveOrUpdate(user).now();
+				user = session.saveOrUpdate(user);
 				assertNotNull(user);
 				assertNotNull(user.getId());
 
-				user = session.saveOrUpdate(user).now();
+				user = session.saveOrUpdate(user);
 				assertNotNull(user);
 				assertNotNull(user.getId());
 
@@ -88,7 +88,7 @@ public class MultipleIDsCRUDTest extends BaseTestAllDB {
 				assertNotNull(user);
 				assertNotNull(user.getId());
 
-				assertEquals(1, session.delete(user).now());
+				assertEquals(1, session.delete(user));
 				assertNull(session.find(user).get());
 
 				return null;

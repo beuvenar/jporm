@@ -88,7 +88,7 @@ public class JdbcTemplatePeople2Test extends BaseTestJdbcTemplate {
 
 			// CREATE
 			final Session conn = jpOrm.session();
-			people = conn.save(people).now();
+			people = conn.save(people);
 
 			System.out.println("People saved with id: " + people.getId()); //$NON-NLS-1$
 			peopleWrapper.setValue( people );
@@ -142,7 +142,7 @@ public class JdbcTemplatePeople2Test extends BaseTestJdbcTemplate {
 		@Override
 		public void exec() throws Exception {
 			final Session conn = jpOrm.session();
-			conn.delete(people).now();
+			conn.delete(people);
 			if (throwsException) {
 				throw new Exception();
 			}

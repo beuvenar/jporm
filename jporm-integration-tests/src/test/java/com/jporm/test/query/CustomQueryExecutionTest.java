@@ -55,20 +55,20 @@ public class CustomQueryExecutionTest extends BaseTestAllDB {
 		session = jpOrm.session();
 		Transaction tx = session.transaction();
 
-		session.deleteQuery(Employee.class).now();
+		session.deleteQuery(Employee.class);
 
 		final Random random = new Random();
 		employee1 = new Employee();
 		employee1.setId(random.nextInt(Integer.MAX_VALUE));
 		employee1.setAge(44);
 		employee1.setEmployeeNumber("a"); //$NON-NLS-1$
-		employee1 = session.save(employee1).now();
+		employee1 = session.save(employee1);
 
 		employee2 = new Employee();
 		employee2.setId(random.nextInt(Integer.MAX_VALUE));
 		employee2.setAge(44);
 		employee2.setEmployeeNumber("b"); //$NON-NLS-1$
-		employee2 = session.save(employee2).now();
+		employee2 = session.save(employee2);
 
 		tx.commit();
 	}
@@ -76,8 +76,8 @@ public class CustomQueryExecutionTest extends BaseTestAllDB {
 	@After
 	public void tearDown() {
 		Transaction tx = session.transaction();
-		session.delete(employee1).now();
-		session.delete(employee2).now();
+		session.delete(employee1);
+		session.delete(employee2);
 		// session.delete(employee3);
 		tx.commit();
 	}

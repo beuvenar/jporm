@@ -19,11 +19,7 @@ import java.util.Collection;
 import java.util.List;
 
 import com.jporm.exception.OrmException;
-import com.jporm.query.crud.Delete;
 import com.jporm.query.crud.Find;
-import com.jporm.query.crud.Save;
-import com.jporm.query.crud.SaveOrUpdate;
-import com.jporm.query.crud.Update;
 import com.jporm.query.delete.DeleteQuery;
 import com.jporm.query.find.CustomFindQuery;
 import com.jporm.query.find.FindQuery;
@@ -48,7 +44,7 @@ public interface Session {
      * @param cascade
      * @return
      */
-    <BEAN> Delete<BEAN> delete(BEAN bean) throws OrmException;
+    <BEAN> int delete(BEAN bean) throws OrmException;
 
     /**
      * Delete the beans from the database
@@ -57,7 +53,7 @@ public interface Session {
      * @throws OrmException
      * @return
      */
-    <BEAN> Delete<List<BEAN>> delete(List<BEAN> beans) throws OrmException;
+    <BEAN> int delete(List<BEAN> beans) throws OrmException;
 
     /**
      * Delete entries from a specific table
@@ -146,7 +142,7 @@ public interface Session {
      * @throws OrmException
      * @return
      */
-    <BEAN> Save<BEAN> save(BEAN bean);
+    <BEAN> BEAN save(BEAN bean);
 
     /**
      * Persist the new beans in the database
@@ -155,7 +151,7 @@ public interface Session {
      * @return
      * @throws OrmException
      */
-    <BEAN> Save<List<BEAN>> save(Collection<BEAN> beans) throws OrmException;
+    <BEAN> List<BEAN> save(Collection<BEAN> beans) throws OrmException;
 
     /**
      * For each bean in the list, update the bean if it exists,
@@ -164,7 +160,7 @@ public interface Session {
      * @return
      * @throws OrmException
      */
-    <BEAN> SaveOrUpdate<BEAN> saveOrUpdate(BEAN bean) throws OrmException;
+    <BEAN> BEAN saveOrUpdate(BEAN bean) throws OrmException;
 
     /**
      * For each bean in the list, update the bean if it exists,
@@ -174,7 +170,7 @@ public interface Session {
      * @return
      * @throws OrmException
      */
-    <BEAN> SaveOrUpdate<List<BEAN>> saveOrUpdate(Collection<BEAN> beans) throws OrmException;
+    <BEAN> List<BEAN> saveOrUpdate(Collection<BEAN> beans) throws OrmException;
 
     /**
      * A script executor useful to execute multiple sql statement from files.
@@ -207,7 +203,7 @@ public interface Session {
      * @param aggregatedUser
      * @return
      */
-    <BEAN> Update<BEAN> update(BEAN bean) throws OrmException;
+    <BEAN> BEAN update(BEAN bean) throws OrmException;
 
     /**
      * Update the values of the existing beans in the database
@@ -216,7 +212,7 @@ public interface Session {
      * @throws OrmException
      * @return
      */
-    <BEAN> Update<List<BEAN>> update(Collection<BEAN> beans) throws OrmException;
+    <BEAN> List<BEAN> update(Collection<BEAN> beans) throws OrmException;
 
     /**
      * Update the entries of a specific TABLE
