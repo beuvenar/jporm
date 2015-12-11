@@ -1,12 +1,12 @@
 /*******************************************************************************
  * Copyright 2013 Francesco Cina'
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *   http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -22,8 +22,7 @@
  */
 package com.jporm.persistor.type;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 import java.math.BigDecimal;
 
@@ -49,43 +48,52 @@ public class TypeFactoryEnumTest extends BaseTestApi {
         assertNotNull(typeFactory.getTypeWrapper(Number.class));
         assertNotNull(typeFactory.getTypeWrapper(Color.class));
     }
-    
+
     @Test
     public void testEnumWrapperOverriding() {
         assertEquals( EnumWrapper.class, typeFactory.getTypeWrapper(Number.class).getTypeWrapper().getClass());
         assertEquals( EnumWrapper.class, typeFactory.getTypeWrapper(Color.class).getTypeWrapper().getClass());
-        
+
         typeFactory.addTypeWrapper(new NumberTypeWrapper());
-        
+
         assertEquals( NumberTypeWrapper.class, typeFactory.getTypeWrapper(Number.class).getTypeWrapper().getClass());
         assertEquals( EnumWrapper.class, typeFactory.getTypeWrapper(Color.class).getTypeWrapper().getClass());
     }
-    
+
     @Test
     public void testEnumWrapperOverridingAndUse() {
-        
+
         TypeWrapper<Color, Object> colorWrapper = typeFactory.getTypeWrapper(Color.class).getTypeWrapper();
         assertEquals( "WHITE",  colorWrapper.unWrap( Color.WHITE ) );
         assertEquals( Color.BLUE,  colorWrapper.wrap( "BLUE" ) );
-        
+
         TypeWrapper<Number, Object> numberWrapper = typeFactory.getTypeWrapper(Number.class).getTypeWrapper();
         assertEquals( "ONE",  numberWrapper.unWrap( Number.ONE ) );
         assertEquals( Number.TWO,  numberWrapper.wrap( "TWO" ) );
-        
+
         typeFactory.addTypeWrapper(new NumberTypeWrapper());
-        
+
         TypeWrapper<Number, Object> overriddenNumberWrapper = typeFactory.getTypeWrapper(Number.class).getTypeWrapper();
         assertEquals( BigDecimal.valueOf(1),  overriddenNumberWrapper.unWrap( Number.ONE ) );
         assertEquals( Number.TWO,  overriddenNumberWrapper.wrap( BigDecimal.valueOf(2) ) );
-        
-        
+
+
     }
-    
+
+    @Test
+    public void testEnumWrapperWithNullValue() {
+
+        TypeWrapper<Color, Object> colorWrapper = typeFactory.getTypeWrapper(Color.class).getTypeWrapper();
+        assertNull( colorWrapper.unWrap( null ) );
+        assertNull( colorWrapper.wrap( null ) );
+
+    }
+
     enum Number {
         ZERO(BigDecimal.valueOf(0)),
         ONE(BigDecimal.valueOf(1)),
         TWO(BigDecimal.valueOf(2));
-        
+
         private final BigDecimal value;
 
         Number (BigDecimal value) {
@@ -97,19 +105,25 @@ public class TypeFactoryEnumTest extends BaseTestApi {
         }
 
         static Number fromValue(BigDecimal fromValue) {
-            if (BigDecimal.valueOf(0).equals(fromValue)) return ZERO;
-            if (BigDecimal.valueOf(1).equals(fromValue)) return ONE;
-            if (BigDecimal.valueOf(2).equals(fromValue)) return TWO;
+            if (BigDecimal.valueOf(0).equals(fromValue)) {
+                return ZERO;
+            }
+            if (BigDecimal.valueOf(1).equals(fromValue)) {
+                return ONE;
+            }
+            if (BigDecimal.valueOf(2).equals(fromValue)) {
+                return TWO;
+            }
             return null;
         }
 
     }
-    
+
     enum Color {
         WHITE,
         BLUE
     }
-    
+
     class NumberTypeWrapper implements TypeWrapper<Number, BigDecimal> {
 
         @Override
@@ -136,7 +150,7 @@ public class TypeFactoryEnumTest extends BaseTestApi {
         public Number clone(Number source) {
             return source;
         }
-        
+
     }
 
 }
