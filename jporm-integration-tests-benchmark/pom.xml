@@ -3,7 +3,7 @@
 	<parent>
 		<groupId>com.jporm</groupId>
 		<artifactId>jporm</artifactId>
-		<version>7.4.3</version>
+		<version>7.4.4-SNAPSHOT</version>
 	</parent>
 	
 	<artifactId>jporm-integration-tests-benchmark</artifactId>
